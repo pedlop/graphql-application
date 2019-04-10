@@ -1,0 +1,7 @@
+{
+    "env": {
+        "MONGO_USER": "pedlop",
+        "MONGO_PASSWORD": "jgAiW34LWSJ2c0R7",
+        "MONGO_DB": "events-application"
+    }
+}

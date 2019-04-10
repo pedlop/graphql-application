@@ -1,0 +1,30 @@
+{
+  "name": "graphql-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedlop/graphql-application.git"
+  },
+  "author": "Pedro Lopes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedlop/graphql-application/issues"
+  },
+  "homepage": "https://github.com/pedlop/graphql-application#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.2.1",
+    "mongoose": "^5.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
