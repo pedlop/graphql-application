@@ -8,11 +8,7 @@ const Event = require('./models/event');
 
 const app = express();
 
-// const events = [];
-
 app.use(bodyParser.json());
-
-// [String!]! - not null and not a list of null
 
 app.use('/graphql', graphqlHtpp({
   schema: buildSchema(`
@@ -46,7 +42,6 @@ app.use('/graphql', graphqlHtpp({
   `),
   rootValue: {
     events: () => {
-      // return events;
       return Event.find().then(events => {
         return events.map(event => ({ ...event._doc, _id: event.id }));
       }).catch(err => {
@@ -55,13 +50,6 @@ app.use('/graphql', graphqlHtpp({
       });
     },
     createEvent: (args) => {
-      // const event = {
-      //   _id: Math.random().toString(),
-      //   title: args.eventInput.title,
-      //   description: args.eventInput.description,
-      //   price: +args.eventInput.price,
-      //   date: args.eventInput.date
-      // };
       const event = new Event({
         title: args.eventInput.title,
         description: args.eventInput.description,
@@ -75,8 +63,6 @@ app.use('/graphql', graphqlHtpp({
         console.log(err);
         throw err;
       });
-      // events.push(event);
-      return event;
     }
   },
   graphiql: true
