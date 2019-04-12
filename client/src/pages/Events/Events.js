@@ -156,7 +156,42 @@ class EventsPage extends Component {
   };
 
   bookEventHandler = () => {
+    const token = this.context.token;
 
+    if (!token) {
+      this.setState({ selectedEvent: null });
+      return;
+    }
+    const requestBody = {
+      query: `
+        mutation {
+          bookEvent(eventId: "${this.state.selectedEvent._id}") {
+            _id
+            createdAt
+            updatedAt
+          }
+        }
+      `
+    };
+
+    fetch('http://localhost:8000/graphql', {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(res => {
+      if (res.status !== 200 && res.status !== 201) {
+        throw new Error('Failed!');
+      }
+      return res.json();
+    }).then(response => {
+      console.log(response);
+      this.setState({ selectedEvent: null });
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   render() {
@@ -186,7 +221,13 @@ class EventsPage extends Component {
           </Modal>
         )}
         {this.state.selectedEvent && (
-          <Modal title={this.state.selectedEvent.title} canCancel canConfirm onCancel={this.modalCancelHandler} onConfirm={this.bookEventHandler} confirmText="Book">
+          <Modal
+            title={this.state.selectedEvent.title}
+            canCancel canConfirm
+            onCancel={this.modalCancelHandler}
+            onConfirm={this.bookEventHandler}
+            confirmText={this.context.token ? 'Book' : 'Confirm'}
+          >
             <h1>{this.state.selectedEvent.title}</h1>
             <h2>
               R$ {(this.state.selectedEvent.price).toLocaleString('pt-BR', {
