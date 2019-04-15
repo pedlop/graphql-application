@@ -26,8 +26,6 @@ const events = async eventIds => {
 const singleEvent = async eventId => {
   try {
     const event = await eventLoader.load(eventId.toString());
-    // const event = await Event.findById(eventId);
-    // console.log('SINGLE EVENT', event);
     return event;
   } catch (err) {
     throw err;
@@ -37,12 +35,10 @@ const singleEvent = async eventId => {
 const user = async userId => {
   try {
     const user = await userLoader.load(userId.toString());
-    // console.log('USER', user);
     return {
       ...user._doc,
       _id: user.id,
-      // createdEvents: events.bind(this, user._doc.createdEvents)
-      createdEvents: () => eventLoader.loadMany(user._doc.createdEvents) // anonymous function
+      createdEvents: () => eventLoader.loadMany(user._doc.createdEvents)
     };
   } catch (err) {
     throw err;
@@ -50,7 +46,6 @@ const user = async userId => {
 };
 
 const transformEvent = event => {
-  // console.log('TRANSFORM EVENT', event);
   return {
     ...event._doc,
     _id: event.id,
@@ -60,7 +55,6 @@ const transformEvent = event => {
 };
 
 const transformBooking = booking => {
-  // console.log('BOOKING', booking);
   return {
     ...booking._doc,
     _id: booking.id,
@@ -71,8 +65,5 @@ const transformBooking = booking => {
   };
 };
 
-// exports.user = user;
-// exports.events = events;
-// exports.singleEvent = singleEvent;
 exports.transformEvent = transformEvent;
 exports.transformBooking = transformBooking;
