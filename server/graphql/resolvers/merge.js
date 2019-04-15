@@ -16,6 +16,7 @@ const events = async eventsIds => {
 const singleEvent = async eventId => {
   try {
     const event = await Event.findById(eventId);
+    // console.log('SINGLE EVENT', event);
     return transformEvent(event);
   } catch (err) {
     throw err;
@@ -25,6 +26,7 @@ const singleEvent = async eventId => {
 const user = async userId => {
   try {
     const user = await User.findById(userId);
+    // console.log('USER', user);
     return {
       ...user._doc,
       _id: user.id,
@@ -36,6 +38,7 @@ const user = async userId => {
 };
 
 const transformEvent = event => {
+  // console.log('TRANSFORM EVENT', event);
   return {
     ...event._doc,
     _id: event.id,
@@ -45,6 +48,7 @@ const transformEvent = event => {
 };
 
 const transformBooking = booking => {
+  // console.log('BOOKING', booking);
   return {
     ...booking._doc,
     _id: booking.id,
