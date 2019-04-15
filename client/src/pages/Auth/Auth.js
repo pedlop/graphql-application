@@ -22,12 +22,9 @@ class AuthPage extends Component {
       return { isLogin: !previousState.isLogin };
     });
 
-    console.log(this.context);
   };
 
   submitHandler = (event) => {
-    console.log(this.context);
-
     event.preventDefault();
 
     const email = this.emailElement.current.value;
@@ -82,16 +79,13 @@ class AuthPage extends Component {
       }
       return res.json();
     }).then(response => {
-      console.log(this.context);
       if (response.data.login.token) {
-        console.log(this.context.login);
         this.context.login(
           response.data.login.token,
           response.data.login.userId,
           response.data.login.tokenExpiration
         );
       }
-      console.log(response);
     }).catch(err => {
       console.log(err);
     });

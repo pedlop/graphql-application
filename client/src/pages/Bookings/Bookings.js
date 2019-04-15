@@ -47,7 +47,6 @@ class BookingsPage extends Component {
       }
       return res.json();
     }).then(response => {
-      console.log(response);
       const bookings = response.data.bookings;
       this.setState({ bookings: bookings, loading: false });
     }).catch(err => {
@@ -58,7 +57,6 @@ class BookingsPage extends Component {
 
   deleteBookingHandler = (bookingId) => {
     this.setState({ loading: true });
-    console.log(bookingId);
     const requestBody = {
       query: `
         mutation CancelBooking($id: ID!) {

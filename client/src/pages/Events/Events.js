@@ -49,9 +49,7 @@ class EventsPage extends Component {
       return;
     }
 
-    const event = { title, price, date, description };
-    console.log(event);
-
+    // const event = { title, price, date, description };
 
     const requestBody = {
       query: `
@@ -88,7 +86,6 @@ class EventsPage extends Component {
       }
       return res.json();
     }).then(response => {
-      // this.fecthEvents();
       this.setState(previousState => {
         const updatedEvents = [...previousState.events];
         updatedEvents.push({
@@ -145,7 +142,6 @@ class EventsPage extends Component {
       }
       return res.json();
     }).then(response => {
-      console.log(response);
       const events = response.data.events;
       if (this.isActive) {
         this.setState({ events: events, loading: false });
@@ -161,7 +157,6 @@ class EventsPage extends Component {
   showDetailHandler = eventId => {
     this.setState(previousState => {
       const selectedEvent = previousState.events.find(e => e._id === eventId);
-      console.log(selectedEvent);
       return { selectedEvent };
     });
   };
@@ -201,7 +196,6 @@ class EventsPage extends Component {
       }
       return res.json();
     }).then(response => {
-      console.log(response);
       this.setState({ selectedEvent: null });
     }).catch(err => {
       console.log(err);
