@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 
 import BookingList from '../../components/Bookings/BookingList/BookingList';
+import BookingsChart from '../../components/Bookings/BookingsChart/BookingsChart';
+import BookingsControls from '../../components/Bookings/BookingsControls/BookingsControls';
 import Loading from '../../components/Loading/Loading';
 import AuthContext from '../../context/auth-context';
 
 class BookingsPage extends Component {
   state = {
     bookings: [],
-    loading: false
+    loading: false,
+    outputType: 'list'
   };
 
   static contextType = AuthContext;
@@ -28,6 +31,7 @@ class BookingsPage extends Component {
               _id
               title
               date
+              price
             }
           }
         }
@@ -94,14 +98,39 @@ class BookingsPage extends Component {
     });
   };
 
+  changeOutputTypeHandler = outputType => {
+    if (outputType === 'list') {
+      this.setState({ outputType })
+    } else {
+      this.setState({ outputType: 'chart' })
+    }
+  };
+
   render() {
+    let content = <Loading />;
+    if (!this.state.loading) {
+      content = (
+        <React.Fragment>
+          <BookingsControls
+            activeOutputType={this.state.outputType}
+            onChange={this.changeOutputTypeHandler}
+          />
+          <div>
+            {this.state.outputType === 'list' ? (
+              <BookingList
+                bookings={this.state.bookings}
+                onDelete={this.deleteBookingHandler}
+              />
+            ) : (
+                <BookingsChart bookings={this.state.bookings} />
+              )}
+          </div>
+        </React.Fragment>
+      );
+    }
     return (
       <React.Fragment>
-        {this.state.loading ? (
-          <Loading />
-        ) : (
-            <BookingList bookings={this.state.bookings} onDelete={this.deleteBookingHandler} />
-          )}
+        {content}
       </React.Fragment>
     );
   }

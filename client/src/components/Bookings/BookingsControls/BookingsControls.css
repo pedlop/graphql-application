@@ -1,0 +1,20 @@
+.bookings-control {
+  text-align: center;
+  padding: 0.5em;
+}
+
+.bookings-control button {
+  font: inherit;
+  border: none;
+  background-color: transparent;
+  color: black;
+  padding: 0.25em 3em;
+  border-bottom: 2px solid transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.bookings-control button.active {
+  border-bottom-color: #01d1d1;
+  color: #01d1d1; 
+}
