@@ -26,7 +26,7 @@ app.use(authenticated);
 app.use('/graphql', graphqlHtpp({
   schema: graphQlSchema,
   rootValue: graphQlResolvers,
-  graphiql: true
+  graphiql: false
 }));
 
 mongoose.connect(
